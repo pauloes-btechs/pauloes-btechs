@@ -2,8 +2,9 @@ name: Activity tracker
 
 # Regenerates the stats / languages / heatmap / latest-commits cards and the
 # contribution snake, then publishes them to the `output` branch, which the
-# README embeds via raw.githubusercontent.com. Public data only — uses the
-# built-in GITHUB_TOKEN, no personal token required.
+# README embeds via raw.githubusercontent.com. With a GH_PAT secret present the
+# numbers include private repos (names/messages stay masked); without it, the
+# built-in GITHUB_TOKEN gives public-only numbers.
 
 on:
   schedule:
@@ -32,6 +33,7 @@ jobs:
       - name: Build stat cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}          # optional: personal token → private repos counted
           GH_USER: ${{ github.repository_owner }}
           OUT_DIR: dist
         run: python3 scripts/build_stats.py

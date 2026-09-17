@@ -13,7 +13,9 @@ Usage:  GITHUB_TOKEN=... GH_USER=pauloes-btechs python3 scripts/build_stats.py [
 import os, sys, json, html, datetime as dt, urllib.request, urllib.parse, math, random
 
 USER  = os.environ.get("GH_USER", "pauloes-btechs")
-TOKEN = os.environ.get("GITHUB_TOKEN", "")
+# GH_PAT (a personal token saved as a repo secret) unlocks private repos; GITHUB_TOKEN is the public-only fallback.
+TOKEN = os.environ.get("GH_PAT") or os.environ.get("GITHUB_TOKEN", "")
+PRIVATE_OK = bool(os.environ.get("GH_PAT"))
 OUT   = os.environ.get("OUT_DIR", "dist")
 MOCK  = "--mock" in sys.argv
 os.makedirs(OUT, exist_ok=True)
@@ -56,13 +58,23 @@ def fetch():
     today = dt.date.today()
     year_start = dt.date(today.year, 1, 1)
     u = api(f"/users/{USER}")
-    repos = api(f"/users/{USER}/repos", {"per_page": 100, "type": "owner", "sort": "pushed"})
+    if PRIVATE_OK:
+        # everything the token can see: own repos + org repos (private included), paginated
+        repos, page = [], 1
+        while True:
+            chunk = api("/user/repos", {"per_page": 100, "page": page, "affiliation": "owner,collaborator,organization_member", "sort": "pushed"})
+            repos += chunk
+            if len(chunk) < 100: break
+            page += 1
+    else:
+        repos = api(f"/users/{USER}/repos", {"per_page": 100, "type": "owner", "sort": "pushed"})
     repos = [r for r in repos if not r["fork"]]
+    n_private = sum(1 for r in repos if r["private"])
     stars = sum(r["stargazers_count"] for r in repos)
     langs = {}
     for r in repos:
         try:
-            for k, v in api(f"/repos/{USER}/{r['name']}/languages").items():
+            for k, v in api(f"/repos/{r['full_name']}/languages").items():
                 langs[k] = langs.get(k, 0) + v
         except Exception:
             pass
@@ -70,7 +82,10 @@ def fetch():
     commits_ytd = safe(lambda: api("/search/commits", {"q": f"author:{USER} author-date:>={year_start}", "per_page": 1}).get("total_count", 0), 0)
     prs = safe(lambda: api("/search/issues", {"q": f"author:{USER} type:pr", "per_page": 1}).get("total_count", 0), 0)
     latest = safe(lambda: api("/search/commits", {"q": f"author:{USER}", "sort": "author-date", "order": "desc", "per_page": 5}).get("items", []), [])
-    latest = [{"repo": c["repository"]["full_name"], "msg": c["commit"]["message"].splitlines()[0],
+    # private repos never leak names or messages onto the public profile
+    latest = [{"repo": "private repo" if c["repository"]["private"] else c["repository"]["full_name"],
+               "msg": "commit in a private repository" if c["repository"]["private"] else c["commit"]["message"].splitlines()[0],
+               "private": c["repository"]["private"],
                "date": c["commit"]["author"]["date"][:10], "url": c["html_url"]} for c in latest]
     # contribution calendar (public contributions) via GraphQL
     q = """query($u:String!){ user(login:$u){ contributionsCollection{ totalCommitContributions
@@ -81,6 +96,7 @@ def fetch():
     if not days:
         days = [((today - dt.timedelta(days=i)).isoformat(), 0) for i in range(364, -1, -1)]
     return dict(name=u.get("name") or USER, followers=u["followers"], public_repos=u["public_repos"],
+                repos_total=len(repos), n_private=n_private, private_ok=PRIVATE_OK,
                 stars=stars, langs=langs, commits_all=commits_all, commits_ytd=commits_ytd, prs=prs,
                 latest=latest, days=days, total_contrib=cal["totalContributions"])
 
@@ -88,11 +104,11 @@ def mock():
     random.seed(3)
     today = dt.date.today()
     days = [((today - dt.timedelta(days=i)).isoformat(), max(0, int(random.gauss(1.2, 2.5)))) for i in range(364, -1, -1)]
-    return dict(name="Pauloes Berhe", followers=12, public_repos=4, stars=9, commits_all=212, commits_ytd=188, prs=14,
+    return dict(name="Pauloes Berhe", followers=12, public_repos=4, repos_total=7, n_private=3, private_ok=True, stars=9, commits_all=212, commits_ytd=188, prs=14,
                 langs={"TypeScript": 412000, "JavaScript": 98000, "CSS": 61000, "Python": 44000, "Shell": 9000, "HTML": 7000},
                 latest=[{"repo": "pauloes-btechs/portfolio", "msg": "v3.11: mobile hero stacking + role breadcrumbs", "date": "2026-09-16", "url": ""},
                         {"repo": "pauloes-btechs/pauloes-btechs", "msg": "Profile README: btechs.io palette, link tabs, featured projects", "date": "2026-09-16", "url": ""},
-                        {"repo": "pauloes-btechs/btechs", "msg": "Workshops page: schedule grid + Calendly embed", "date": "2026-09-12", "url": ""},
+                        {"repo": "private repo", "msg": "commit in a private repository", "private": True, "date": "2026-09-12", "url": ""},
                         {"repo": "pauloes-btechs/portfolio", "msg": "OG image + metadataBase", "date": "2026-09-04", "url": ""},
                         {"repo": "pauloes-btechs/btechs", "msg": "Security page copy pass", "date": "2026-08-30", "url": ""}],
                 days=days, total_contrib=sum(c for _, c in days))
@@ -119,7 +135,7 @@ def stats_card(d, stamp):
              ("COMMITS · ALL TIME", d["commits_all"], TEXT),
              ("PULL REQUESTS", d["prs"], BLUE),
              ("STARS EARNED", d["stars"], ORANGE),
-             ("PUBLIC REPOS", d["public_repos"], TEXT),
+             ("REPOS · INCL. PRIVATE" if d.get("private_ok") else "PUBLIC REPOS", d["repos_total"] if d.get("private_ok") else d["public_repos"], TEXT),
              ("FOLLOWERS", d["followers"], GREEN)]
     body = []
     for i, (lab, val, col) in enumerate(tiles):
@@ -127,7 +143,8 @@ def stats_card(d, stamp):
         body.append(f'<rect x="{x}" y="{y-34}" width="164" height="68" rx="10" fill="{PANEL2}" stroke="{BORDER}"/>'
                     f'<text x="{x+14}" y="{y+2}" font-family="{SANS}" font-size="28" font-weight="700" fill="{col}">{fmt(val)}</text>'
                     f'<text x="{x+14}" y="{y+22}" font-family="{MONO}" font-size="9.5" letter-spacing="1.5" fill="{MUTED}">{esc(lab)}</text>')
-    body.append(f'<text x="28" y="{H-16}" font-family="{MONO}" font-size="10" letter-spacing="1.5" fill="{DIM}">{d["total_contrib"]} CONTRIBUTIONS IN THE LAST YEAR</text>')
+    scope = "PUBLIC + PRIVATE" if d.get("private_ok") else "PUBLIC ONLY"
+    body.append(f'<text x="28" y="{H-16}" font-family="{MONO}" font-size="10" letter-spacing="1.5" fill="{DIM}">{d["total_contrib"]} CONTRIBUTIONS IN THE LAST YEAR  ·  {scope}</text>')
     return frame(W, H, "GITHUB  ·  BY THE NUMBERS", "UPDATED " + stamp, "".join(body))
 
 def languages_card(d, stamp):
@@ -197,10 +214,11 @@ def commits_card(d, stamp):
     for i, c in enumerate(rows):
         y = 84 + i * 44
         msg = c["msg"] if len(c["msg"]) <= 78 else c["msg"][:77] + "…"
+        priv = c.get("private")
         body.append(f'<line x1="28" y1="{y+16}" x2="{W-28}" y2="{y+16}" stroke="{BORDER}"/>'
                     f'<circle cx="36" cy="{y-5}" r="4" fill="{ORANGE if i == 0 else DIM}"/>'
-                    f'<text x="52" y="{y}" font-family="{MONO}" font-size="12" fill="{BLUE}">{esc(c["repo"].split("/")[-1])}</text>'
-                    f'<text x="300" y="{y}" font-family="{SANS}" font-size="14.5" fill="{TEXT}">{esc(msg)}</text>'
+                    f'<text x="52" y="{y}" font-family="{MONO}" font-size="12" fill="{DIM if priv else BLUE}">{"🔒 " if priv else ""}{esc(c["repo"].split("/")[-1])}</text>'
+                    f'<text x="300" y="{y}" font-family="{SANS}" font-size="14.5" font-style="{"italic" if priv else "normal"}" fill="{MUTED if priv else TEXT}">{esc(msg)}</text>'
                     f'<text x="{W-28}" y="{y}" text-anchor="end" font-family="{MONO}" font-size="11" letter-spacing="1" fill="{MUTED}">{esc(c["date"])}</text>')
     if not rows:
         body.append(f'<text x="28" y="90" font-family="{SANS}" font-size="15" fill="{MUTED}">No public commits yet.</text>')

@@ -143,20 +143,20 @@ Full story, charts and role pages → **[pauloes.com](https://pauloes.com)**
 
 <table>
 <tr>
-<td width="50%"><a href="https://github.com/pauloes-btechs?tab=repositories"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/stats.svg" alt="GitHub stats — commits, PRs, stars, repos" width="100%"/></a></td>
-<td width="50%"><a href="https://github.com/pauloes-btechs?tab=repositories"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/languages.svg" alt="Top languages" width="100%"/></a></td>
+<td width="50%"><a href="https://github.com/pauloes-btechs?tab=repositories"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/stats.svg?v=2" alt="GitHub stats — commits, PRs, stars, repos" width="100%"/></a></td>
+<td width="50%"><a href="https://github.com/pauloes-btechs?tab=repositories"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/languages.svg?v=2" alt="Top languages" width="100%"/></a></td>
 </tr>
 </table>
 
-<a href="https://github.com/pauloes-btechs"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/heatmap.svg" alt="Contribution heatmap — last 52 weeks" width="100%"/></a>
+<a href="https://github.com/pauloes-btechs"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/heatmap.svg?v=2" alt="Contribution heatmap — last 52 weeks" width="100%"/></a>
 
-<a href="https://github.com/pauloes-btechs?tab=repositories"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/commits.svg" alt="Latest commits" width="100%"/></a>
+<a href="https://github.com/pauloes-btechs?tab=repositories"><img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/commits.svg?v=2" alt="Latest commits" width="100%"/></a>
 
 <div align="center">
 
 <a href="https://github.com/pauloes-btechs"><img src="https://streak-stats.demolab.com?user=pauloes-btechs&hide_border=true&background=080D1A&ring=F7931A&fire=F7931A&currStreakLabel=F7931A&sideLabels=E2E8F0&currStreakNum=E2E8F0&sideNums=E2E8F0&dates=94A3B8&stroke=1E2A40" alt="Contribution streak"/></a>
 
-<img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/github-snake-dark.svg" alt="Contribution snake" width="100%"/>
+<img src="https://raw.githubusercontent.com/pauloes-btechs/pauloes-btechs/output/github-snake-dark.svg?v=2" alt="Contribution snake" width="100%"/>
 
 </div>
 
