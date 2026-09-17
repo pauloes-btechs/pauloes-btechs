@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="54" viewBox="0 0 1200 54" role="img" aria-label="What I build with">
+<rect width="1200" height="54" fill="#080D1A" rx="10"/>
+<line x1="0" y1="53" x2="1200" y2="53" stroke="#1E2A40"/>
+<text x="20" y="34" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" letter-spacing="3" fill="#F7931A">04</text>
+<text x="66" y="35" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="1" fill="#E2E8F0">What I build with</text>
+<text x="1180" y="34" text-anchor="end" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" letter-spacing="2" fill="#475569">TOOLS &amp; PLATFORMS</text>
+<rect x="0" y="51" width="90" height="3" fill="#F7931A"/>
+</svg>

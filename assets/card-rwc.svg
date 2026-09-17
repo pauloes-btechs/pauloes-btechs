@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="580" height="270" viewBox="0 0 580 270" role="img" aria-label="Robots Will Cry">
+<defs>
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#94A3B8" stroke-opacity="0.07" stroke-width="1"/>
+  </pattern>
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#F7931A" stop-opacity="0.35"/>
+    <stop offset="100%" stop-color="#F7931A" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="fade" x1="0" x2="1" y1="0" y2="0">
+    <stop offset="0%" stop-color="#080D1A" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#080D1A" stop-opacity="1"/>
+  </linearGradient>
+</defs>
+<rect x="0.5" y="0.5" width="579" height="269" rx="14" fill="#0C1324" stroke="#1E2A40"/>
+<rect x="0.5" y="0.5" width="579" height="269" rx="14" fill="url(#grid)"/>
+<rect x="0" y="0" width="5" height="270" rx="2" fill="#5B8DEF"/>
+<text x="28" y="40" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" letter-spacing="2.5" fill="#5B8DEF">MUSIC  ·  ART SITE  ·  BITCOIN COMMERCE</text>
+<g font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="10.5" letter-spacing="2">
+  <circle cx="455.5" cy="36" r="3.5" fill="#5B8DEF">
+    <animate attributeName="fill-opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+  <text x="552" y="40" text-anchor="end" fill="#94A3B8">IN PROGRESS</text>
+</g>
+<text x="28" y="80" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#E2E8F0" letter-spacing="-0.5">Robots Will Cry</text>
+<text x="28" y="118" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14.5" fill="#94A3B8">Cinematic boot sequence into a scrolling page-world</text><text x="28" y="140" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14.5" fill="#94A3B8">for an EP release. DSP rail, sticky player, and a</text><text x="28" y="162" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14.5" fill="#94A3B8">BTCPay-powered shop with checkout.</text>
+<g><rect x="28" y="198" width="94" height="24" rx="6" fill="#101A30" stroke="#1E2A40"/><text x="75.0" y="214" text-anchor="middle" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" fill="#E2E8F0">Next.js 15</text><rect x="130" y="198" width="94" height="24" rx="6" fill="#101A30" stroke="#1E2A40"/><text x="177.0" y="214" text-anchor="middle" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" fill="#E2E8F0">TypeScript</text><rect x="232" y="198" width="65" height="24" rx="6" fill="#101A30" stroke="#1E2A40"/><text x="264.5" y="214" text-anchor="middle" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" fill="#E2E8F0">BTCPay</text><rect x="305" y="198" width="65" height="24" rx="6" fill="#101A30" stroke="#1E2A40"/><text x="337.5" y="214" text-anchor="middle" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" fill="#E2E8F0">Resend</text></g>
+<line x1="28" y1="240" x2="552" y2="240" stroke="#1E2A40"/>
+<text x="28" y="259" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" letter-spacing="1.5" fill="#5B8DEF">robotswillcry.com  ↗</text>
+</svg>

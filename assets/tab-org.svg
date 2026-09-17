@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="175" height="46" viewBox="0 0 175 46" role="img" aria-label="@BTECHS-ORG">
+<rect x="0.5" y="0.5" width="174" height="45" rx="10" fill="#0C1324" stroke="#94A3B8" stroke-width="1.5"/>
+<circle cx="22" cy="23.0" r="4" fill="#94A3B8">
+  <animate attributeName="fill-opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/>
+</circle>
+<text x="36" y="28.0" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" font-weight="700" letter-spacing="1.5" fill="#94A3B8">@BTECHS-ORG</text>
+<text x="159" y="28.0" text-anchor="end" font-family="'SFMono-Regular',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" fill="#94A3B8">↗</text>
+</svg>
