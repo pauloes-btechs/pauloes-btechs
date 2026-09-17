@@ -241,7 +241,7 @@ if __name__ == "__main__":
          ["Story-driven product portfolio: roles, programs,",
           "outcomes and the charts behind them. Clean, fast,",
           "recruiter-readable. MIT licensed."],
-         ["Next.js 14", "React", "Canvas", "Vercel"], "github.com/pauloes-btechs/portfolio", GREEN, "LIVE")
+         ["Next.js 14", "React", "Canvas", "Vercel"], "pauloes.com  ·  source on GitHub", GREEN, "LIVE")
     card("t7f", "7eventh Foundation", "NONPROFIT  ·  CLIENT BUILD",
          ["Donation-facing site for the 7eventh Foundation.",
           "Resend email pipeline, Cloudflare DNS, DMARC/SPF",

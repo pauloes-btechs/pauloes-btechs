@@ -21,18 +21,26 @@ if ! gh repo view "$REPO" >/dev/null 2>&1; then
   gh repo create "$REPO" --public --description "Profile README" >/dev/null
 fi
 
-# 2. Init + push
+# 2. Workflow file: the desktop bridge can't write into .github/, so it ships at the repo root
+#    and gets moved here. Also retire the old snake-only workflow (replaced by tracker.yml).
+mkdir -p .github/workflows
+[ -f tracker.yml ] && mv -f tracker.yml .github/workflows/tracker.yml
+rm -f .github/workflows/snake.yml
+# exFAT sidecars that macOS drops everywhere — never commit them
+find . -name '._*' -not -path './.git/*' -delete 2>/dev/null || true
+
+# 3. Init + push
 if [ ! -d .git ]; then
   git init -q -b main
 fi
 git add -A
 git -c user.email="pauloes@btechs.io" -c user.name="Pauloes Berhe" \
-    commit -q -m "Profile README: btechs.io palette, link tabs, featured projects, timeline, stack, stats" || echo "(nothing new to commit)"
+    commit -q -m "Profile README update: self-hosted activity tracker, snake fix, pauloes.com card link" || echo "(nothing new to commit)"
 git remote get-url origin >/dev/null 2>&1 || git remote add origin "https://github.com/$REPO.git"
 git push -u origin main
 
-# 3. Kick the contribution-snake workflow once so the image exists immediately
-gh workflow run snake.yml -R "$REPO" >/dev/null 2>&1 && echo "Snake workflow triggered (takes ~1 min)." || true
+# 4. Kick the tracker once so the cards exist immediately
+sleep 3; gh workflow run tracker.yml -R "$REPO" >/dev/null 2>&1 && echo "Tracker workflow triggered — cards appear in ~1-2 min." || true
 
 echo
 echo "Done → https://github.com/$USER"
