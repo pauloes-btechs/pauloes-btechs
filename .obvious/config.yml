@@ -1,0 +1,8 @@
+# Repository policy for agent runs
+repo: pauloes-btechs/pauloes-btechs
+defaultBranch: main
+merge:
+  method: squash
+  requireHumanMerge: true
+branches:
+  setup: obvious/setup-onboarding
