@@ -227,21 +227,37 @@ if __name__ == "__main__":
     section("portfolio","03", "Portfolio / experience", "11+ YEARS")
     section("stack",    "04", "What I build with", "TOOLS & PLATFORMS")
     section("stats",    "05", "GitHub activity", "COMMITS · STREAKS · LANGUAGES")
+    # ranked by impact (set by Pauloes) — keep this order in README.md too
+    card("dci", "DCI Global Research Map", "01  ·  MIT DIGITAL CURRENCY INITIATIVE",
+         ["Production platform charting MIT DCI's worldwide",
+          "research network: interactive map + entity database",
+          "with community submissions and admin review."],
+         ["React", "TypeScript", "Supabase", "Vercel"], "dci-global-research-map.vercel.app", BLUE, "LIVE")
+    card("nearauth", "NEARAuth", "02  ·  SECURITY, PRIVACY & IDENTITY",
+         ["A unique email alias and strong password for every",
+          "signup, an AES-256-GCM vault, alias-leak detection,",
+          "and an audit trail anchored on NEAR."],
+         ["MV3 Extension", "Rust · NEAR", "LangGraph", "WebCrypto"], "live demo  ·  pauloes-btechs.github.io/NEARAuth", GREEN, "LIVE")
+    card("kyagent", "KYAgent", "03  ·  KNOW-YOUR-AGENT FOR AI THAT MOVES MONEY",
+         ["Identity, delegated authorization and continuous",
+          "OFAC screening for autonomous financial agents —",
+          "ALLOW / REVIEW / BLOCK with signed evidence."],
+         ["Node.js", "MongoDB Atlas", "Vector Search", "Ed25519"], "live console  ·  pauloes-btechs.github.io/KYAgent", ORANGE, "LIVE")
+    card("foundry", "Foundry", "04  ·  AI SOFTWARE FACTORY",
+         ["Compiles a brief into requirements, architecture",
+          "and a task DAG; specialist agents build in isolated",
+          "worktrees; tests + independent review gate merges."],
+         ["TypeScript", "Claude Code", "Git worktrees", "SQLite"], "pauloes.com/portfolio/foundry", BLUE, "IN PROGRESS")
     card("btechs", "Btechs", "COMPANY  ·  FOUNDER & TECHNICAL LEAD",
          ["Bitcoin + AI workshops, digital infrastructure and",
           "security engineering for people, institutions and",
           "communities. Self-sovereign by design."],
          ["Next.js", "Google Cloud", "Bitcoin", "Security"], "btechs.io", ORANGE, "LIVE")
-    card("dci", "DCI Global Research Map", "MIT DIGITAL CURRENCY INITIATIVE",
-         ["Interactive map of the global Bitcoin research",
-          "network — entities, researchers and programs.",
-          "Supabase Auth + RLS hardening, Vercel deploys."],
-         ["Vite", "React", "Express", "Supabase", "Vercel"], "dci-global-research-map.vercel.app", BLUE, "LIVE")
     card("portfolio", "pauloes.com", "PERSONAL PORTFOLIO  ·  OPEN SOURCE",
-         ["Story-driven product portfolio: roles, programs,",
-          "outcomes and the charts behind them. Clean, fast,",
-          "recruiter-readable. MIT licensed."],
-         ["Next.js 14", "React", "Canvas", "Vercel"], "pauloes.com  ·  source on GitHub", GREEN, "LIVE")
+         ["HUD-styled product portfolio: Btechs builds ranked",
+          "by impact, a scroll-driven career story, and the",
+          "charts behind every outcome. MIT licensed."],
+         ["Next.js 16", "React 19", "Canvas", "Vercel"], "pauloes.com  ·  source on GitHub", GREEN, "LIVE")
     card("t7f", "7eventh Foundation", "NONPROFIT  ·  CLIENT BUILD",
          ["Donation-facing site for the 7eventh Foundation.",
           "Resend email pipeline, Cloudflare DNS, DMARC/SPF",

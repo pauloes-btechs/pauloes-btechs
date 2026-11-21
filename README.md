@@ -56,20 +56,40 @@ open_to:   senior / lead product roles
 <!-- ── 02 featured projects ──────────────────────────────────────────────── -->
 <img src="assets/section-projects.svg" alt="02 — Featured projects" width="100%"/>
 
+<!-- Ranked by impact — set by Pauloes. Keep this order; new projects go below unless he says otherwise. -->
+<table>
+<tr>
+<td width="50%"><a href="https://dci-global-research-map.vercel.app"><img src="assets/card-dci.svg" alt="01 — DCI Global Research Map" width="100%"/></a></td>
+<td width="50%"><a href="https://pauloes-btechs.github.io/NEARAuth/"><img src="assets/card-nearauth.svg" alt="02 — NEARAuth" width="100%"/></a></td>
+</tr>
+<tr>
+<td width="50%"><a href="https://pauloes-btechs.github.io/KYAgent/live/"><img src="assets/card-kyagent.svg" alt="03 — KYAgent" width="100%"/></a></td>
+<td width="50%"><a href="https://www.pauloes.com/portfolio/foundry"><img src="assets/card-foundry.svg" alt="04 — Foundry, AI software factory" width="100%"/></a></td>
+</tr>
+</table>
+
+<details>
+<summary><b>More builds</b> — Btechs, pauloes.com, client sites and tooling</summary>
+<br/>
+
 <table>
 <tr>
 <td width="50%"><a href="https://btechs.io"><img src="assets/card-btechs.svg" alt="Btechs" width="100%"/></a></td>
-<td width="50%"><a href="https://dci-global-research-map.vercel.app"><img src="assets/card-dci.svg" alt="DCI Global Research Map" width="100%"/></a></td>
-</tr>
-<tr>
 <td width="50%"><a href="https://pauloes.com"><img src="assets/card-portfolio.svg" alt="pauloes.com portfolio" width="100%"/></a></td>
-<td width="50%"><a href="https://www.7eventhfoundation.org"><img src="assets/card-t7f.svg" alt="7eventh Foundation" width="100%"/></a></td>
 </tr>
 <tr>
+<td width="50%"><a href="https://www.7eventhfoundation.org"><img src="assets/card-t7f.svg" alt="7eventh Foundation" width="100%"/></a></td>
 <td width="50%"><a href="https://robotswillcry.com"><img src="assets/card-rwc.svg" alt="Robots Will Cry" width="100%"/></a></td>
+</tr>
+<tr>
 <td width="50%"><a href="mailto:pauloes@btechs.io?subject=AEGIS"><img src="assets/card-aegis.svg" alt="AEGIS CISO auditor" width="100%"/></a></td>
+<td width="50%"></td>
 </tr>
 </table>
+
+All engineering projects, with architecture and evidence → **[pauloes.com/portfolio](https://www.pauloes.com/portfolio)**
+
+</details>
 
 <!-- ── 03 portfolio ──────────────────────────────────────────────────────── -->
 <img src="assets/section-portfolio.svg" alt="03 — Portfolio / experience" width="100%"/>
@@ -82,7 +102,7 @@ open_to:   senior / lead product roles
 
 | Where | Role | What happened |
 |---|---|---|
-| **Btechs** · 2025 → now | Founder & Technical Lead | Bitcoin + AI workshops, secure cloud and security engineering; lead the MIT DCI **Global Research Map** platform and AI/ML education work on Google Cloud. |
+| **Btechs** · 2025 → now | Founder & Technical Lead | Product Owner and Technical Lead of the MIT DCI **Global Research Map** (in production), plus **NEARAuth** (privacy identity on NEAR), **KYAgent** (Know-Your-Agent for financial AI) and **Foundry**, an AI software factory. |
 | **Bitcoin Innovation Hub** · 2024 → 2026 | Co-Founder & CEO | Built a Bitcoinized settlement product on **BTCPayServer** that cut transaction fees **90%+** for small businesses. Backed by a **$300K #startsmall** grant. |
 | **Bloomberg LP** · 2022 → 2024 | Sr. Technical Product Manager | Owned **20+ digital properties** with **1M+ monthly users**; shipped **200+ features** across the marketing stack (SFMC, Webflow, Asana, SalesWings). |
 | **City University of Seattle** · 2014 → 2022 | Technical Product Manager | Led the **Azure migration** and a **$2.8M** infrastructure program; vendor programs with Sabey, Cisco and Juniper. |
