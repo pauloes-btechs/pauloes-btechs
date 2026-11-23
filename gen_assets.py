@@ -195,7 +195,7 @@ def timeline():
   <animate attributeName="stroke-dashoffset" values="0;-40" dur="2s" repeatCount="indefinite"/>
 </line>
 {''.join(parts)}
-<text x="{W-24}" y="{H-16}" text-anchor="end" font-family="{MONO}" font-size="10.5" letter-spacing="2" fill="{DIM}">11+ YEARS  ·  ENTERPRISE PLATFORM PRODUCTS  →  MISSION-DRIVEN BITCOIN VENTURES</text>
+<text x="{W-24}" y="{H-16}" text-anchor="end" font-family="{MONO}" font-size="10.5" letter-spacing="2" fill="{DIM}">12+ YEARS  ·  ENTERPRISE PLATFORM PRODUCTS  →  MISSION-DRIVEN BITCOIN VENTURES</text>
 </svg>'''
     write("timeline.svg", svg)
 
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     tab("org",      "@BTECHS-ORG",   MUTED,  fill=False)
     section("about",    "01", "What I'm building", "PRODUCT × INFRASTRUCTURE")
     section("projects", "02", "Featured projects", "SHIPPED & IN FLIGHT")
-    section("portfolio","03", "Portfolio / experience", "11+ YEARS")
+    section("portfolio","03", "Portfolio / experience", "12+ YEARS")
     section("stack",    "04", "What I build with", "TOOLS & PLATFORMS")
     section("stats",    "05", "GitHub activity", "COMMITS · STREAKS · LANGUAGES")
     # ranked by impact (set by Pauloes) — keep this order in README.md too
