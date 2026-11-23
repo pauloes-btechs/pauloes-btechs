@@ -30,7 +30,7 @@
 <tr>
 <td width="60%" valign="top">
 
-Technologist and product leader building **secure digital infrastructure at the intersection of Bitcoin, finance, and open source**. 11+ years shipping enterprise-scale platform products (Bloomberg, City University of Seattle), now founding mission-driven Bitcoin ventures backed by Jack Dorsey's **#startsmall** and MIT's **Digital Currency Initiative**.
+Technologist and product leader building **secure digital infrastructure at the intersection of Bitcoin, finance, and open source**. 12+ years shipping enterprise-scale platform products (Bloomberg, City University of Seattle), now founding mission-driven Bitcoin ventures backed by Jack Dorsey's **#startsmall** and MIT's **Digital Currency Initiative**.
 
 I care about the whole stack: the roadmap *and* the cloud project, the IAM policy *and* the landing page. If it needs to be resilient, private, and actually shipped, that's where I like to work.
 
