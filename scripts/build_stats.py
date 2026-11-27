@@ -21,7 +21,7 @@ OUT   = os.environ.get("OUT_DIR", "dist")
 MOCK  = "--mock" in sys.argv
 os.makedirs(OUT, exist_ok=True)
 
-BG, PANEL, PANEL2, BORDER = "#080D1A", "#0C1324", "#101A30", "#1E2A40"
+PANEL, PANEL2, BORDER = "#0C1324", "#101A30", "#1E2A40"
 TEXT, MUTED, DIM, ORANGE, BLUE, GREEN = "#E2E8F0", "#94A3B8", "#475569", "#F7931A", "#5B8DEF", "#3FAE5E"
 SANS = "'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif"
 MONO = "'SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace"
@@ -69,7 +69,6 @@ def fetch():
         if len(chunk) < 100: break
         page += 1
     repos = [r for r in repos if not r["fork"]]
-    n_private = sum(1 for r in repos if r["private"])
     stars = sum(r["stargazers_count"] for r in repos)
     langs = {}
     for r in repos:
@@ -83,17 +82,17 @@ def fetch():
     latest = [{"repo": "private repo" if c["repository"]["private"] else c["repository"]["full_name"],
                "msg": "commit in a private repository" if c["repository"]["private"] else c["commit"]["message"].splitlines()[0],
                "private": c["repository"]["private"],
-               "date": c["commit"]["author"]["date"][:10], "url": c["html_url"]} for c in latest]
+               "date": c["commit"]["author"]["date"][:10]} for c in latest]
     # contribution calendar (public contributions) via GraphQL
-    q = """query($u:String!){ user(login:$u){ contributionsCollection{ totalCommitContributions
+    q = """query($u:String!){ user(login:$u){ contributionsCollection{
              contributionCalendar{ totalContributions weeks{ contributionDays{ date contributionCount } } } } } }"""
     cal = safe(lambda: graphql(q, {"u": USER})["user"]["contributionsCollection"]["contributionCalendar"],
                {"totalContributions": 0, "weeks": []})
     days = [(d["date"], d["contributionCount"]) for w in cal["weeks"] for d in w["contributionDays"]]
     if not days:
         days = [((today - dt.timedelta(days=i)).isoformat(), 0) for i in range(364, -1, -1)]
-    return dict(name=u.get("name") or USER, followers=u["followers"], public_repos=u["public_repos"],
-                repos_total=len(repos), n_private=n_private, private_ok=PRIVATE_OK,
+    return dict(followers=u["followers"], public_repos=u["public_repos"],
+                repos_total=len(repos), private_ok=PRIVATE_OK,
                 stars=stars, langs=langs, commits_all=commits_all, commits_ytd=commits_ytd, prs=prs,
                 latest=latest, days=days, total_contrib=cal["totalContributions"])
 
@@ -101,13 +100,13 @@ def mock():
     random.seed(3)
     today = dt.date.today()
     days = [((today - dt.timedelta(days=i)).isoformat(), max(0, int(random.gauss(1.2, 2.5)))) for i in range(364, -1, -1)]
-    return dict(name="Pauloes Berhe", followers=12, public_repos=4, repos_total=7, n_private=3, private_ok=True, stars=9, commits_all=212, commits_ytd=188, prs=14,
+    return dict(followers=12, public_repos=4, repos_total=7, private_ok=True, stars=9, commits_all=212, commits_ytd=188, prs=14,
                 langs={"TypeScript": 412000, "JavaScript": 98000, "CSS": 61000, "Python": 44000, "Shell": 9000, "HTML": 7000},
-                latest=[{"repo": "pauloes-btechs/portfolio", "msg": "v3.11: mobile hero stacking + role breadcrumbs", "date": "2026-09-16", "url": ""},
-                        {"repo": "pauloes-btechs/pauloes-btechs", "msg": "Profile README: btechs.io palette, link tabs, featured projects", "date": "2026-09-16", "url": ""},
-                        {"repo": "private repo", "msg": "commit in a private repository", "private": True, "date": "2026-09-12", "url": ""},
-                        {"repo": "pauloes-btechs/portfolio", "msg": "OG image + metadataBase", "date": "2026-09-04", "url": ""},
-                        {"repo": "pauloes-btechs/btechs", "msg": "Security page copy pass", "date": "2026-08-30", "url": ""}],
+                latest=[{"repo": "pauloes-btechs/portfolio", "msg": "v3.11: mobile hero stacking + role breadcrumbs", "date": "2026-09-16"},
+                        {"repo": "pauloes-btechs/pauloes-btechs", "msg": "Profile README: btechs.io palette, link tabs, featured projects", "date": "2026-09-16"},
+                        {"repo": "private repo", "msg": "commit in a private repository", "private": True, "date": "2026-09-12"},
+                        {"repo": "pauloes-btechs/portfolio", "msg": "OG image + metadataBase", "date": "2026-09-04"},
+                        {"repo": "pauloes-btechs/btechs", "msg": "Security page copy pass", "date": "2026-08-30"}],
                 days=days, total_contrib=sum(c for _, c in days))
 
 # ----------------------------------------------------------------- svg helpers
