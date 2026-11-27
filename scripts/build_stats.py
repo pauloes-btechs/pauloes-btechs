@@ -59,16 +59,15 @@ def fetch():
     today = dt.date.today()
     year_start = dt.date(today.year, 1, 1)
     u = api(f"/users/{USER}")
-    if PRIVATE_OK:
-        # everything the token can see: own repos + org repos (private included), paginated
-        repos, page = [], 1
-        while True:
-            chunk = api("/user/repos", {"per_page": 100, "page": page, "affiliation": "owner,collaborator,organization_member", "sort": "pushed"})
-            repos += chunk
-            if len(chunk) < 100: break
-            page += 1
-    else:
-        repos = api(f"/users/{USER}/repos", {"per_page": 100, "type": "owner", "sort": "pushed"})
+    # PAT: everything the token can see (own + org repos, private included); else the user's public repos
+    path, scope = (("/user/repos", {"affiliation": "owner,collaborator,organization_member"}) if PRIVATE_OK
+                   else (f"/users/{USER}/repos", {"type": "owner"}))
+    repos, page = [], 1
+    while True:
+        chunk = api(path, {**scope, "per_page": 100, "page": page, "sort": "pushed"})
+        repos += chunk
+        if len(chunk) < 100: break
+        page += 1
     repos = [r for r in repos if not r["fork"]]
     n_private = sum(1 for r in repos if r["private"])
     stars = sum(r["stargazers_count"] for r in repos)
