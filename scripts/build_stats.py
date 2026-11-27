@@ -188,10 +188,10 @@ def heatmap_card(d, stamp):
         if cell is None: continue
         date, c = cell
         dd = dt.date.fromisoformat(date)
-        if dd.day <= 7 and w not in month_labels.values():
-            month_labels[dd.strftime("%b").upper()] = w
+        if dd.day == 1:
+            month_labels[w] = dd.strftime("%b").upper()
         body.append(f'<rect x="{x0 + w*(cs+gap)}" y="{y0 + dw*(cs+gap)}" width="{cs}" height="{cs}" rx="3" fill="{HEAT[level(c)]}"><title>{date}: {c}</title></rect>')
-    for lab, w in month_labels.items():
+    for w, lab in month_labels.items():
         body.append(f'<text x="{x0 + w*(cs+gap)}" y="{y0-10}" font-family="{MONO}" font-size="9.5" letter-spacing="1.5" fill="{DIM}">{lab}</text>')
     for lab, dw in (("MON", 1), ("WED", 3), ("FRI", 5)):
         body.append(f'<text x="{x0-10}" y="{y0 + dw*(cs+gap) + 11}" text-anchor="end" font-family="{MONO}" font-size="9" fill="{DIM}">{lab}</text>')
