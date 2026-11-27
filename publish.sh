@@ -21,12 +21,7 @@ if ! gh repo view "$REPO" >/dev/null 2>&1; then
   gh repo create "$REPO" --public --description "Profile README" >/dev/null
 fi
 
-# 2. Workflow file: the desktop bridge can't write into .github/, so it ships at the repo root
-#    and gets moved here. Also retire the old snake-only workflow (replaced by tracker.yml).
-mkdir -p .github/workflows
-[ -f tracker.yml ] && mv -f tracker.yml .github/workflows/tracker.yml
-rm -f .github/workflows/snake.yml
-# exFAT sidecars that macOS drops everywhere — never commit them
+# 2. exFAT sidecars that macOS drops everywhere — never commit them
 find . -name '._*' -not -path './.git/*' -delete 2>/dev/null || true
 
 # 3. Init + push
