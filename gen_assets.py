@@ -41,7 +41,6 @@ def write(name, svg):
 # ---------------------------------------------------------------- header
 def header():
     W, H = 1200, 320
-    random.seed(7)
     hub = (860, 168)
     nodes = [(1040, 60), (1120, 220), (700, 40), (640, 262), (980, 290), (1150, 120), (560, 130)]
     lines, dots, signals = [], [], []
@@ -196,6 +195,7 @@ def timeline():
 # ---------------------------------------------------------------- footer
 def footer():
     W, H = 1200, 110
+    random.seed(7)  # fixed seed so regenerating leaves footer.svg unchanged
     dots = "".join(f'<circle cx="{random.randint(30,W-30)}" cy="{random.randint(20,H-20)}" r="{random.choice([1,1.5,2])}" fill="{ORANGE}" fill-opacity="{random.choice([0.3,0.5,0.8])}"><animate attributeName="fill-opacity" values="0.2;0.9;0.2" dur="{random.uniform(2,5):.1f}s" repeatCount="indefinite"/></circle>' for _ in range(28))
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Building resilient, self-sovereign digital infrastructure">
 {grid_defs()}
