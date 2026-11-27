@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the SVG assets for the pauloes-btechs profile README.
 Palette lifted from btechs.io: navy-black ground, Bitcoin orange accent, slate text."""
-import math, random, os, html
+import random, os, html
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 os.makedirs(OUT, exist_ok=True)
