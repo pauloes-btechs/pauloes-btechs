@@ -102,7 +102,7 @@ def tab(name, label, color, fill=True):
     bgc = color if fill else PANEL
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{H}" viewBox="0 0 {w} {H}" role="img" aria-label="{esc(label)}">
 <rect x="0.5" y="0.5" width="{w-1}" height="{H-1}" rx="10" fill="{bgc}" stroke="{color}" stroke-width="1.5"/>
-<circle cx="22" cy="{H/2}" r="4" fill="{txt if fill else color}">
+<circle cx="22" cy="{H/2}" r="4" fill="{txt}">
   <animate attributeName="fill-opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/>
 </circle>
 <text x="36" y="{H/2+5}" font-family="{MONO}" font-size="13" font-weight="700" letter-spacing="1.5" fill="{txt}">{esc(label)}</text>

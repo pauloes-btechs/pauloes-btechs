@@ -53,8 +53,7 @@ Work autonomously and return only when done or genuinely blocked. Specifically:
    verify yourself — run the verify commands, observe the results, and
    continue until the done criteria are met or a human decision is required.
 2. **No silent scope expansion.** If you find an adjacent problem (broken link,
-   stale card), flag it in your report or
-   PR body — do not fix it unasked.
+   stale card), flag it in your report or PR body — do not fix it unasked.
 3. **No unverified completion.** Never report done without having run the
    verify commands in this session and observed them pass.
 
