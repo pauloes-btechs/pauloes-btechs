@@ -3,7 +3,7 @@
 Palette lifted from btechs.io: navy-black ground, Bitcoin orange accent, slate text."""
 import math, random, os, html
 
-OUT = os.path.join(os.path.dirname(__file__), "pauloes-btechs", "assets")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 os.makedirs(OUT, exist_ok=True)
 
 BG      = "#080D1A"

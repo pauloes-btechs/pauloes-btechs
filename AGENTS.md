@@ -37,12 +37,6 @@ There is no linter, test suite, or dependency manifest in this repo. CI is the
 push to `main`, not on PRs, so a green local `gen_assets.py` run is the
 primary gate for asset changes.
 
-**Known quirk:** `gen_assets.py` writes to `dirname(gen_assets.py)/pauloes-btechs/assets/`
-— one level deeper than the repo's own `assets/`. If you run it from the repo
-root it exits 0 but leaves an untracked nested `pauloes-btechs/` directory;
-delete it (`rm -rf pauloes-btechs/`). Do not "fix" the path as a side effect
-of another change — that changes committed assets.
-
 ## Done criteria
 
 - `python3 gen_assets.py` exits 0, and any regenerated SVGs you intend to ship
@@ -59,7 +53,7 @@ Work autonomously and return only when done or genuinely blocked. Specifically:
    verify yourself — run the verify commands, observe the results, and
    continue until the done criteria are met or a human decision is required.
 2. **No silent scope expansion.** If you find an adjacent problem (broken link,
-   stale card, the `gen_assets.py` path quirk above), flag it in your report or
+   stale card), flag it in your report or
    PR body — do not fix it unasked.
 3. **No unverified completion.** Never report done without having run the
    verify commands in this session and observed them pass.
