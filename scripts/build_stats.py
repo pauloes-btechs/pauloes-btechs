@@ -74,11 +74,8 @@ def fetch():
     stars = sum(r["stargazers_count"] for r in repos)
     langs = {}
     for r in repos:
-        try:
-            for k, v in api(f"/repos/{r['full_name']}/languages").items():
-                langs[k] = langs.get(k, 0) + v
-        except Exception:
-            pass
+        for k, v in safe(lambda: api(f"/repos/{r['full_name']}/languages"), {}).items():
+            langs[k] = langs.get(k, 0) + v
     commits_all = safe(lambda: api("/search/commits", {"q": f"author:{USER}", "per_page": 1}).get("total_count", 0), 0)
     commits_ytd = safe(lambda: api("/search/commits", {"q": f"author:{USER} author-date:>={year_start}", "per_page": 1}).get("total_count", 0), 0)
     prs = safe(lambda: api("/search/issues", {"q": f"author:{USER} type:pr", "per_page": 1}).get("total_count", 0), 0)
