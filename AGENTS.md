@@ -32,10 +32,10 @@ python3 gen_assets.py          # regenerates all SVGs into assets/ — must exit
 git diff --stat assets/        # confirms which SVGs changed
 ```
 
-There is no linter, test suite, or dependency manifest in this repo. CI is the
-**Activity tracker** workflow (`.github/workflows/tracker.yml`); it runs on
-push to `main`, not on PRs, so a green local `gen_assets.py` run is the
-primary gate for asset changes.
+There is no linter, test suite, or dependency manifest in this repo. On PRs,
+CI (`.github/workflows/ci.yml`) only byte-compiles the Python. The **Activity
+tracker** workflow (`.github/workflows/tracker.yml`) runs on push to `main`, not
+on PRs, so a green local `gen_assets.py` run is the primary gate for asset changes.
 
 ## Done criteria
 
