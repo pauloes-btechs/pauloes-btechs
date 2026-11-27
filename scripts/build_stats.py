@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Build the GitHub activity tracker SVGs for the profile README.
 
-Runs inside GitHub Actions with the repo's GITHUB_TOKEN (public data only — no PAT needed).
+Runs inside GitHub Actions. With GH_PAT set, private repos are counted (names and
+messages stay masked); otherwise GITHUB_TOKEN gives public-only numbers.
 Writes four SVGs into dist/:
   stats.svg      — commits (YTD + all time), PRs, stars, public repos, followers
-  languages.svg  — top languages by bytes across public repos
+  languages.svg  — top languages by bytes across counted repos
   heatmap.svg    — 52-week contribution grid
   commits.svg    — latest 5 commits (repo · message · date)
 
@@ -167,8 +168,8 @@ def languages_card(d, stamp):
                     f'<rect x="{cx}" y="{cy+8}" width="250" height="3" rx="1.5" fill="{PANEL2}"/>'
                     f'<rect x="{cx}" y="{cy+8}" width="{250*pct/100:.1f}" height="3" rx="1.5" fill="{LANG_COLORS.get(name, MUTED)}"/>')
     if not top:
-        body.append(f'<text x="28" y="120" font-family="{SANS}" font-size="15" fill="{MUTED}">No public code yet — check back soon.</text>')
-    return frame(W, H, "TOP LANGUAGES  ·  PUBLIC REPOS", "BY BYTES", "".join(body))
+        body.append(f'<text x="28" y="120" font-family="{SANS}" font-size="15" fill="{MUTED}">No code yet — check back soon.</text>')
+    return frame(W, H, "TOP LANGUAGES  ·  " + ("ALL REPOS" if d.get("private_ok") else "PUBLIC REPOS"), "BY BYTES", "".join(body))
 
 def heatmap_card(d, stamp):
     W, H = 1200, 230
@@ -204,7 +205,7 @@ def heatmap_card(d, stamp):
     for i, col in enumerate(HEAT):
         body.append(f'<rect x="{lx + i*19}" y="{H-25}" width="14" height="14" rx="3" fill="{col}"/>')
     body.append(f'<text x="{lx + 5*19 + 4}" y="{H-14}" font-family="{MONO}" font-size="9.5" letter-spacing="1.5" fill="{DIM}">MORE</text>')
-    body.append(f'<text x="28" y="{H-14}" font-family="{MONO}" font-size="10" letter-spacing="1.5" fill="{DIM}">{d["total_contrib"]} PUBLIC CONTRIBUTIONS  ·  LAST 52 WEEKS</text>')
+    body.append(f'<text x="28" y="{H-14}" font-family="{MONO}" font-size="10" letter-spacing="1.5" fill="{DIM}">{d["total_contrib"]} CONTRIBUTIONS  ·  LAST 52 WEEKS</text>')
     return frame(W, H, "CONTRIBUTIONS  ·  52 WEEKS", "UPDATED " + stamp, "".join(body))
 
 def commits_card(d, stamp):
