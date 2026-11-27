@@ -83,7 +83,7 @@ def fetch():
                "msg": "commit in a private repository" if c["repository"]["private"] else c["commit"]["message"].splitlines()[0],
                "private": c["repository"]["private"],
                "date": c["commit"]["author"]["date"][:10]} for c in latest]
-    # contribution calendar (public contributions) via GraphQL
+    # contribution calendar via GraphQL
     q = """query($u:String!){ user(login:$u){ contributionsCollection{
              contributionCalendar{ totalContributions weeks{ contributionDays{ date contributionCount } } } } } }"""
     cal = safe(lambda: graphql(q, {"u": USER})["user"]["contributionsCollection"]["contributionCalendar"],
@@ -131,7 +131,7 @@ def stats_card(d, stamp):
              ("COMMITS · ALL TIME", d["commits_all"], TEXT),
              ("PULL REQUESTS", d["prs"], BLUE),
              ("STARS EARNED", d["stars"], ORANGE),
-             ("REPOS · INCL. PRIVATE" if d.get("private_ok") else "PUBLIC REPOS", d["repos_total"] if d.get("private_ok") else d["public_repos"], TEXT),
+             ("REPOS · INCL. PRIVATE" if d["private_ok"] else "PUBLIC REPOS", d["repos_total"] if d["private_ok"] else d["public_repos"], TEXT),
              ("FOLLOWERS", d["followers"], GREEN)]
     body = []
     for i, (lab, val, col) in enumerate(tiles):
@@ -139,7 +139,7 @@ def stats_card(d, stamp):
         body.append(f'<rect x="{x}" y="{y-34}" width="164" height="68" rx="10" fill="{PANEL2}" stroke="{BORDER}"/>'
                     f'<text x="{x+14}" y="{y+2}" font-family="{SANS}" font-size="28" font-weight="700" fill="{col}">{fmt(val)}</text>'
                     f'<text x="{x+14}" y="{y+22}" font-family="{MONO}" font-size="9.5" letter-spacing="1.5" fill="{MUTED}">{esc(lab)}</text>')
-    scope = "PUBLIC + PRIVATE" if d.get("private_ok") else "PUBLIC ONLY"
+    scope = "PUBLIC + PRIVATE" if d["private_ok"] else "PUBLIC ONLY"
     body.append(f'<text x="28" y="{H-16}" font-family="{MONO}" font-size="10" letter-spacing="1.5" fill="{DIM}">{d["total_contrib"]} CONTRIBUTIONS IN THE LAST YEAR  ·  {scope}</text>')
     return frame(W, H, "GITHUB  ·  BY THE NUMBERS", "UPDATED " + stamp, "".join(body))
 
@@ -164,7 +164,7 @@ def languages_card(d, stamp):
                     f'<rect x="{cx}" y="{cy+8}" width="{250*pct/100:.1f}" height="3" rx="1.5" fill="{LANG_COLORS.get(name, MUTED)}"/>')
     if not top:
         body.append(f'<text x="28" y="120" font-family="{SANS}" font-size="15" fill="{MUTED}">No code yet — check back soon.</text>')
-    return frame(W, H, "TOP LANGUAGES  ·  " + ("ALL REPOS" if d.get("private_ok") else "PUBLIC REPOS"), "BY BYTES", "".join(body))
+    return frame(W, H, "TOP LANGUAGES  ·  " + ("ALL REPOS" if d["private_ok"] else "PUBLIC REPOS"), "BY BYTES", "".join(body))
 
 def heatmap_card(d, stamp):
     W, H = 1200, 230
@@ -217,7 +217,7 @@ def commits_card(d, stamp):
                     f'<text x="300" y="{y}" font-family="{SANS}" font-size="14.5" font-style="{"italic" if priv else "normal"}" fill="{MUTED if priv else TEXT}">{esc(msg)}</text>'
                     f'<text x="{W-28}" y="{y}" text-anchor="end" font-family="{MONO}" font-size="11" letter-spacing="1" fill="{MUTED}">{esc(c["date"])}</text>')
     if not rows:
-        body.append(f'<text x="28" y="90" font-family="{SANS}" font-size="15" fill="{MUTED}">No public commits yet.</text>')
+        body.append(f'<text x="28" y="90" font-family="{SANS}" font-size="15" fill="{MUTED}">No commits yet.</text>')
     return frame(W, H, "LATEST COMMITS", "UPDATED " + stamp, "".join(body))
 
 if __name__ == "__main__":
